@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">POS</string>
+    <string name="dragon_roll">Dragon Roll</string>
+    <string name="jumbo_roll">Jumbo Roll</string>
+    <string name="diamond_roll">Diamond Roll</string>
+    <string name="black_dragon_roll">Black Dragon Roll</string>
+    <string name="unagi_roll">Unagi Roll</string>
+    <string name="california_roll">California Roll</string>
+    <string name="shrimp_tempura_roll">Shrimp Tempura Roll</string>
+    <string name="crunchy_roll">Crunchy Roll</string>
+    <string name="tuna_roll">Tuna Roll</string>
+    <string name="spicy_salmon_roll">Spicy Salmon Roll</string>
+
+    <string name="emp_button"> Employee Login </string>
+    <string name="cust_button"> Customer Login </string>
 </resources>
