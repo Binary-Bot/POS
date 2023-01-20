@@ -23,7 +23,7 @@ class ItemCardAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemCardViewHolder {
         val adapterLayout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.grid_all_items, parent, false)
+            .inflate(R.layout.grid_item, parent, false)
         return ItemCardViewHolder(adapterLayout)
     }
 
