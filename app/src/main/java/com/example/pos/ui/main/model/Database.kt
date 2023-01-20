@@ -3,7 +3,7 @@ package com.example.pos.ui.main.model
 import com.example.pos.R
 
 class Database {
-    private var database: MutableList<Item> = populateDB()
+    var database: MutableList<Item> = populateDB()
 
     private fun populateDB(): MutableList<Item> {
         return mutableListOf(
@@ -18,6 +18,10 @@ class Database {
             Item(R.drawable.diamondroll,"Diamond Roll", 15.50),
             Item(R.drawable.jumboroll,"Jumbo Roll", 16.50)
         )
+    }
+
+    fun getSize(): Int {
+        return database.size
     }
 
     fun addItem(item: Item) {
