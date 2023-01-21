@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pos.R
 import com.example.pos.ui.main.model.Database
+import com.google.android.material.card.MaterialCardView
 
 class ItemCardAdapter(
     private val context: Context?,
@@ -19,6 +20,7 @@ class ItemCardAdapter(
         val imageView: ImageView = view!!.findViewById(R.id.item_image)
         val nameTextView: TextView = view!!.findViewById(R.id.item_name)
         val priceTextView: TextView = view!!.findViewById(R.id.item_price)
+        val cardView: MaterialCardView = view!!.findViewById(R.id.item_card_view)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemCardViewHolder {
@@ -32,7 +34,10 @@ class ItemCardAdapter(
         val item = database.database[position]
         holder.imageView.setImageResource(item.drawableID)
         holder.nameTextView.text = item.name
-        holder.priceTextView.text = "$ ${item.price}"
+        holder.priceTextView.text = "$${item.price}"
+        holder.cardView.setOnClickListener {
+
+        }
     }
 
     override fun getItemCount(): Int = database.getSize()

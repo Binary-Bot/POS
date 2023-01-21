@@ -13,4 +13,11 @@
 
     <string name="emp_button"> Employee Login </string>
     <string name="cust_button"> Customer Login </string>
+
+    <string name="emp_page_title"> Our Items: </string>
+    <string name="edit_item">Edit Item:</string>
+    <string name="name_of_item">Name of Item:</string>
+    <string name="price_of_item">Price of Item:</string>
+    <string name="remove">Remove</string>
+    <string name="save">Save</string>
 </resources>
