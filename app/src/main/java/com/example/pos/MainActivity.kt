@@ -3,10 +3,8 @@ package com.example.pos
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import com.example.pos.databinding.ActivityMainBinding
 import com.example.pos.ui.main.view.EmployeeActivity
-import com.example.pos.ui.main.view.MainFragment
 
 
 class MainActivity : AppCompatActivity() {
