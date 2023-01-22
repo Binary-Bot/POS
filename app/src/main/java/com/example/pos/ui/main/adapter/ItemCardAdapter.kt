@@ -52,4 +52,5 @@ class ItemCardAdapter(
     }
 
     override fun getItemCount(): Int = database.getSize()
+
 }

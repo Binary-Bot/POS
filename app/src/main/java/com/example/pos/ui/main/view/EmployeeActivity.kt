@@ -15,7 +15,6 @@ class EmployeeActivity: AppCompatActivity() {
         binding = ActivityEmployeeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         binding.listAllItems.gridRecyclerView.adapter = ItemCardAdapter(applicationContext, db)
         binding.listAllItems.gridRecyclerView.setHasFixedSize(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

@@ -28,7 +28,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(listIntent)
         }
         binding.custButton.setOnClickListener {
-
+            listIntent = Intent()
+            startActivity(listIntent)
         }
 
 
