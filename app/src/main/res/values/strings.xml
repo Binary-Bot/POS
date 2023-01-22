@@ -20,4 +20,7 @@
     <string name="price_of_item">Price of Item:</string>
     <string name="remove">Remove</string>
     <string name="save">Save</string>
+
+    <string name="cart_title">Your Cart:</string>
+    <string name="charge">Charge</string>
 </resources>

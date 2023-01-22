@@ -10,34 +10,36 @@
     app:cardElevation="4dp"
     app:cardCornerRadius="4dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dip" >
 
         <TextView
-            android:id="@+id/item_name_cart"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:text=""
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:id="@+id/item_price_cart"
+            android:id="@+id/name_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.941"
-            app:layout_constraintStart_toEndOf="@+id/item_name_cart"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+            android:textStyle="bold"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/quantity_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name_cart"
+            android:layout_marginTop="7dp"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/price_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/name_cart"
+            android:layout_alignBottom="@+id/name_cart"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </RelativeLayout>
 
 
 </com.google.android.material.card.MaterialCardView>
