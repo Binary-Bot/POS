@@ -6,18 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import androidx.lifecycle.ViewModel
 import com.example.pos.R
 import com.example.pos.ui.main.model.Database
 import com.example.pos.ui.main.model.Item
+import com.example.pos.ui.main.model.MainViewModel
 
-class ListItemAdapter (private val context: Context, private val data: Database) : BaseAdapter() {
+class ListItemAdapter (
+    private val context: Context,
+    private val viewModel: MainViewModel
+    ) : BaseAdapter() {
 
     override fun getCount(): Int {
-        return data.getSize()
+        return viewModel.itemsOnCart.value!!.size
     }
 
-    override fun getItem(position: Int): Any {
-        return data.database[position]
+    override fun getItem(position: Int): Item {
+        return viewModel.itemsOnCart.value!![position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -35,7 +40,7 @@ class ListItemAdapter (private val context: Context, private val data: Database)
         } else {
             holder = convertView.tag as ViewHolder
         }
-        holder.bind(data.database[position])
+        holder.bind(getItem(position))
         return convertView
     }
 

@@ -9,13 +9,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pos.R
 import com.example.pos.ui.main.model.Database
+import com.example.pos.ui.main.model.MainViewModel
 import com.example.pos.ui.main.view.EditItemPopUpWindow
 import com.google.android.material.card.MaterialCardView
 
 
 class ItemCardAdapter(
     private val context: Context?,
-    private var database: Database,
+    private var viewModel: MainViewModel
 ): RecyclerView.Adapter<ItemCardAdapter.ItemCardViewHolder>() {
 
     private lateinit var popView: ViewGroup
@@ -37,7 +38,7 @@ class ItemCardAdapter(
 
     override fun onBindViewHolder(holder: ItemCardViewHolder, position: Int) {
         context?.resources
-        val item = database.database[position]
+        val item = viewModel.products.value!![position]
         holder.imageView.setImageResource(item.drawableID)
         holder.nameTextView.text = item.name
         holder.priceTextView.text = "$${item.price}"
@@ -46,6 +47,6 @@ class ItemCardAdapter(
         }
     }
 
-    override fun getItemCount(): Int = database.getSize()
+    override fun getItemCount(): Int = viewModel.products.value!!.size
 
 }
