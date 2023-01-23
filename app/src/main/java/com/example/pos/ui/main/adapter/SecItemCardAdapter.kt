@@ -9,18 +9,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pos.R
 import com.example.pos.ui.main.model.Database
-import com.example.pos.ui.main.view.EditItemPopUpWindow
 import com.google.android.material.card.MaterialCardView
 
-
-class ItemCardAdapter(
+class SecItemCardAdapter(
     private val context: Context?,
     private var database: Database,
-): RecyclerView.Adapter<ItemCardAdapter.ItemCardViewHolder>() {
+): RecyclerView.Adapter<SecItemCardAdapter.SecItemCardViewHolder>() {
 
     private lateinit var popView: ViewGroup
 
-    class ItemCardViewHolder(view: View?) : RecyclerView.ViewHolder(view!!) {
+    class SecItemCardViewHolder(view: View?) : RecyclerView.ViewHolder(view!!) {
         val imageView: ImageView = view!!.findViewById(R.id.item_image)
         val nameTextView: TextView = view!!.findViewById(R.id.item_name)
         val priceTextView: TextView = view!!.findViewById(R.id.item_price)
@@ -28,24 +26,23 @@ class ItemCardAdapter(
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemCardViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SecItemCardViewHolder {
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.grid_item, parent, false)
         popView = parent
-        return ItemCardViewHolder(adapterLayout)
+        return SecItemCardViewHolder(adapterLayout)
     }
 
-    override fun onBindViewHolder(holder: ItemCardViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SecItemCardViewHolder, position: Int) {
         val resources = context?.resources
         val item = database.database[position]
         holder.imageView.setImageResource(item.drawableID)
         holder.nameTextView.text = item.name
         holder.priceTextView.text = "$${item.price}"
         holder.cardView.setOnClickListener {
-            val popupWindow = EditItemPopUpWindow(popView, item)
+
         }
     }
 
     override fun getItemCount(): Int = database.getSize()
-
 }

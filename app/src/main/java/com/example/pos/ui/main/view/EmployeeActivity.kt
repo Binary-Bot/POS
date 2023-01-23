@@ -6,7 +6,7 @@ import com.example.pos.databinding.ActivityEmployeeBinding
 import com.example.pos.ui.main.adapter.ItemCardAdapter
 import com.example.pos.ui.main.model.Database
 
-class EmployeeActivity(): AppCompatActivity() {
+class EmployeeActivity(): AppCompatActivity(){
     private lateinit var binding: ActivityEmployeeBinding
     private var db = Database()
 
