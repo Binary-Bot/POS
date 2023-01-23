@@ -29,7 +29,7 @@ class ListItemAdapter (private val context: Context, private val data: Database)
         val holder: ViewHolder
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_cart, parent, false)
+            convertView = LayoutInflater.from(parent.context).inflate(R.layout.item_cart, parent, false)
             holder = ViewHolder(convertView)
             convertView.tag = holder
         } else {
