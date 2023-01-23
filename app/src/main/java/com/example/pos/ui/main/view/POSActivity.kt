@@ -1,29 +1,64 @@
 package com.example.pos.ui.main.view
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.example.pos.databinding.ActivityPosBinding
-import com.example.pos.ui.main.adapter.ItemCardAdapter
 import com.example.pos.ui.main.adapter.ListItemAdapter
 import com.example.pos.ui.main.adapter.SecItemCardAdapter
 import com.example.pos.ui.main.model.Database
+import com.example.pos.ui.main.model.MainViewModel
 
-class POSActivity: AppCompatActivity() {
+class POSActivity(): Fragment() {
 
-    private lateinit var binding:ActivityPosBinding
+    private var binding:ActivityPosBinding? = null
+    private val sharedViewModel: MainViewModel by activityViewModels()
     private var db = Database()
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityPosBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        binding = ActivityPosBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
+//
+//        binding.cartDisplay.cartList.adapter=ListItemAdapter(applicationContext, db)
+//        binding.allItems.gridRecyclerView.adapter = SecItemCardAdapter(applicationContext, db)
+//        binding.allItems.gridRecyclerView.setHasFixedSize(true)
+//
+//        binding.cartDisplay.cartList.adapter=ListItemAdapter(applicationContext, db)
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//    }
 
-        binding.cartDisplay.cartList.adapter=ListItemAdapter(applicationContext, db)
-        binding.allItems.gridRecyclerView.adapter = SecItemCardAdapter(applicationContext, db)
-        binding.allItems.gridRecyclerView.setHasFixedSize(true)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val fragBinding = ActivityPosBinding.inflate(inflater, container, false)
+        binding=fragBinding
+        return fragBinding.root
+    }
 
-        binding.cartDisplay.cartList.adapter=ListItemAdapter(applicationContext, db)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding?.apply{
+            viewModel = sharedViewModel
+            lifecycleOwner = viewLifecycleOwner
+            posActivity = this@POSActivity
+        }
+        binding?.cartDisplay?.cartList?.adapter=ListItemAdapter(requireContext(), db)
+        binding?.allItems?.gridRecyclerView?.adapter = SecItemCardAdapter(requireContext(), db)
+        binding?.allItems?.gridRecyclerView?.setHasFixedSize(true)
+
+        binding?.cartDisplay?.cartList?.adapter=ListItemAdapter(requireContext(), db)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 }

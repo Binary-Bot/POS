@@ -36,13 +36,13 @@ class ItemCardAdapter(
     }
 
     override fun onBindViewHolder(holder: ItemCardViewHolder, position: Int) {
-        val resources = context?.resources
+        context?.resources
         val item = database.database[position]
         holder.imageView.setImageResource(item.drawableID)
         holder.nameTextView.text = item.name
         holder.priceTextView.text = "$${item.price}"
         holder.cardView.setOnClickListener {
-            val popupWindow = EditItemPopUpWindow(popView, item)
+            EditItemPopUpWindow(popView, item)
         }
     }
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startActivity">
+
+    <fragment
+        android:id="@+id/startActivity"
+        android:name="com.example.pos.ui.main.view.StartActivity"
+        android:label="StartActivity" >
+        <action
+            android:id="@+id/action_startActivity_to_employeeActivity"
+            app:destination="@id/employeeActivity" />
+        <action
+            android:id="@+id/action_startActivity_to_POSActivity"
+            app:destination="@id/POSActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeeActivity"
+        android:name="com.example.pos.ui.main.view.EmployeeActivity"
+        android:label="activity_employee"
+        tools:layout="@layout/activity_employee" />
+    <fragment
+        android:id="@+id/POSActivity"
+        android:name="com.example.pos.ui.main.view.POSActivity"
+        android:label="POSActivity" />
+</navigation>
