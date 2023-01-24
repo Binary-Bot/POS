@@ -31,10 +31,8 @@ class MainViewModel : ViewModel() {
     }
 
     fun addItemOnCart(item: Item) {
-        Log.d("Alert", "Item added on cart in viewModel")
         _itemsOnCart.value?.add(item)
         _totalPrice.value = (_totalPrice.value)?.plus(item.price)
-        Log.d("Alert", _itemsOnCart.value.toString())
     }
 
     fun removeItemOnCart(item: Item) {
