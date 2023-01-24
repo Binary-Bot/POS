@@ -15,6 +15,7 @@ import com.google.android.material.card.MaterialCardView
 class SecItemCardAdapter(
     private val context: Context?,
     private var viewModel: MainViewModel,
+    private var listAdapter: ListItemAdapter
 ): RecyclerView.Adapter<SecItemCardAdapter.SecItemCardViewHolder>() {
 
     private lateinit var popView: ViewGroup
@@ -41,7 +42,8 @@ class SecItemCardAdapter(
         holder.nameTextView.text = item.name
         holder.priceTextView.text = "$${item.price}"
         holder.cardView.setOnClickListener {
-
+            viewModel.addItemOnCart(item)
+            listAdapter.notifyDataSetChanged()
         }
     }
 

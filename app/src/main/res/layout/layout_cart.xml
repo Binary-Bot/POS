@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.example.pos.ui.main.model.MainViewModel" />
     </data>
 
     <RelativeLayout
@@ -29,9 +31,10 @@
             android:id="@+id/charge_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/charge"
+            android:layout_alignBottom="@id/cart_list"
             android:background="@color/design_default_color_primary"
-            android:layout_alignBottom="@id/cart_list" />
+            android:contentDescription="@string/button"
+            android:text="" />
 
 
     </RelativeLayout>

@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import com.example.pos.R
 import com.example.pos.databinding.ActivityPosBinding
 import com.example.pos.ui.main.adapter.ListItemAdapter
 import com.example.pos.ui.main.adapter.SecItemCardAdapter
-import com.example.pos.ui.main.model.Database
+import com.example.pos.ui.main.model.Item
 import com.example.pos.ui.main.model.MainViewModel
 
 class POSActivity(): Fragment() {
@@ -35,14 +38,26 @@ class POSActivity(): Fragment() {
             lifecycleOwner = viewLifecycleOwner
             posActivity = this@POSActivity
         }
-        binding?.cartDisplay?.cartList?.adapter=ListItemAdapter(requireContext(), sharedViewModel)
-        binding?.allItems?.gridRecyclerView?.adapter = SecItemCardAdapter(requireContext(), sharedViewModel)
+        val adapter = ListItemAdapter(requireContext(), sharedViewModel)
+        binding?.cartDisplay?.cartList?.adapter= adapter
+
+        binding?.allItems?.gridRecyclerView?.adapter = SecItemCardAdapter(requireContext(), sharedViewModel, adapter)
         binding?.allItems?.gridRecyclerView?.setHasFixedSize(true)
+
+        binding?.cartDisplay?.chargeButton?.text = getString(R.string.pay, sharedViewModel.totalPrice)
+        sharedViewModel.totalPrice.observe(viewLifecycleOwner) {
+                newPrice -> binding?.cartDisplay?.chargeButton?.text = getString(R.string.pay, newPrice) }
+
+        binding?.cartDisplay?.chargeButton?.setOnClickListener { payOrder() }
 
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+    }
+
+    fun payOrder(){
+        Toast.makeText(activity, "Paid!", Toast.LENGTH_SHORT).show()
     }
 }

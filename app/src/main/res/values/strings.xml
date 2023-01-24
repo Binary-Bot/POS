@@ -22,5 +22,6 @@
     <string name="save">Save</string>
 
     <string name="cart_title">Your Cart:</string>
-    <string name="charge">Charge</string>
+    <string name="pay">Pay %s</string>
+    <string name="button">Button</string>
 </resources>
