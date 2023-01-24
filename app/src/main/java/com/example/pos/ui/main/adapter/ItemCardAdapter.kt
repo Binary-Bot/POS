@@ -43,7 +43,7 @@ class ItemCardAdapter(
         holder.nameTextView.text = item.name
         holder.priceTextView.text = "$${item.price}"
         holder.cardView.setOnClickListener {
-            EditItemPopUpWindow(popView, item)
+            EditItemPopUpWindow(this, popView, position, viewModel)
         }
     }
 

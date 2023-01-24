@@ -26,6 +26,10 @@ class MainViewModel : ViewModel() {
         _totalPrice.value = 0.00
     }
 
+    fun updateItem(position: Int, item: Item) {
+        _products.value?.set(position, item)
+    }
+
     fun removeFromMenu(item:Item) {
         _products.value?.remove(item)
     }

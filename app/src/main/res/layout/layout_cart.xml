@@ -19,7 +19,7 @@
             android:text="@string/cart_title"
             android:textAlignment="center"
             android:textAppearance="?attr/textAppearanceHeadline3"
-            android:textColor="#8C9EFF" />
+            android:textColor="@color/white" />
 
         <ListView
             android:id="@+id/cart_list"
