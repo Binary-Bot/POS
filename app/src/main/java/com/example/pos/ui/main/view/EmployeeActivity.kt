@@ -26,6 +26,7 @@ class EmployeeActivity(): Fragment(){
         binding?.listAllItems?.gridRecyclerView?.adapter = adapter
         binding?.listAllItems?.gridRecyclerView?.setHasFixedSize(true)
 
+
         binding?.addItemButton?.setOnClickListener {
             EditItemPopUpWindow(adapter, container!!, sharedViewModel.products.value!!.size, sharedViewModel)
         }

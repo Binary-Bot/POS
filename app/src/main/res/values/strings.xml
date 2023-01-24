@@ -25,4 +25,6 @@
     <string name="pay">Pay %s</string>
     <string name="button">Button</string>
     <string name="add_items">+</string>
+    <string name="menu"> Menu  </string>
+    <string name="order">Order</string>
 </resources>
