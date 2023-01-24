@@ -24,4 +24,5 @@
     <string name="cart_title">Your Cart:</string>
     <string name="pay">Pay %s</string>
     <string name="button">Button</string>
+    <string name="add_items">+</string>
 </resources>

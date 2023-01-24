@@ -20,8 +20,8 @@ class EditItemPopUpWindow(
     position: Int,
     viewModel: MainViewModel): PopupWindow() {
 
-    private var item: Item = viewModel.products.value!![position]
-
+    private var item: Item =
+        viewModel.products.value?.getOrElse(position) { Item(R.drawable.noimage, "", 0.00) }!!
     init {
         val layout = LayoutInflater.from(parent.context).inflate(R.layout.edit_item, parent, false)
 
@@ -39,17 +39,28 @@ class EditItemPopUpWindow(
         removeButton.setOnClickListener {
             // Do something when remove button is clicked
             viewModel.removeFromMenu(item)
-            adapter.notifyDataSetChanged()
+            adapter.notifyItemRemoved(position)
             dismiss()
         }
 
         val saveButton = layout.findViewById<Button>(R.id.save_button)
         saveButton.setOnClickListener {
             // Do something when save button is clicked
-            viewModel.updateItem(position, Item(item.drawableID, popupEditName.text.toString(), popupEditPrice.text.toString().toDouble()))
-            adapter.notifyDataSetChanged()
+            if (viewModel.checkItemOnMenu(item)){
+                viewModel.updateItem(position, Item(item.drawableID, popupEditName.text.toString(), popupEditPrice.text.toString().toDouble()))
+                adapter.notifyItemChanged(position)
+            } else {
+                viewModel.addOnMenu(Item(R.drawable.noimage, popupEditName.text.toString(), popupEditPrice.text.toString().toDouble()))
+                adapter.notifyItemInserted(position)
+            }
+
             dismiss()
         }
         showAtLocation(parent, Gravity.CENTER, 0, 0)
+    }
+
+    override fun dismiss() {
+        super.dismiss()
+
     }
 }

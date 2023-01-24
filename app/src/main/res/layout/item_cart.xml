@@ -38,7 +38,7 @@
             android:layout_alignBottom="@+id/name_cart"
             android:layout_alignParentEnd="true"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
 

@@ -21,6 +21,15 @@ class EmployeeActivity(): Fragment(){
     ): View? {
         val fragBinding = ActivityEmployeeBinding.inflate(inflater, container, false)
         binding=fragBinding
+
+        val adapter = ItemCardAdapter(requireContext(), sharedViewModel)
+        binding?.listAllItems?.gridRecyclerView?.adapter = adapter
+        binding?.listAllItems?.gridRecyclerView?.setHasFixedSize(true)
+
+        binding?.addItemButton?.setOnClickListener {
+            EditItemPopUpWindow(adapter, container!!, sharedViewModel.products.value!!.size, sharedViewModel)
+        }
+
         return fragBinding.root
     }
 
@@ -32,8 +41,6 @@ class EmployeeActivity(): Fragment(){
             lifecycleOwner = viewLifecycleOwner
             employeeActivity= this@EmployeeActivity
         }
-        binding?.listAllItems?.gridRecyclerView?.adapter = ItemCardAdapter(requireContext(), sharedViewModel)
-        binding?.listAllItems?.gridRecyclerView?.setHasFixedSize(true)
     }
 
     override fun onDestroyView() {

@@ -9,7 +9,7 @@ import java.text.NumberFormat
 
 class MainViewModel : ViewModel() {
     private val _products = MutableLiveData<MutableList<Item>>()
-    val products: LiveData<MutableList<Item>> = _products
+    val products: MutableLiveData<MutableList<Item>> = _products
     private val db = Database()
 
     private val _itemsOnCart = MutableLiveData<MutableList<Item>>()
@@ -30,8 +30,16 @@ class MainViewModel : ViewModel() {
         _products.value?.set(position, item)
     }
 
+    fun addOnMenu(item: Item) {
+        _products.value?.add(item)
+    }
+
     fun removeFromMenu(item:Item) {
         _products.value?.remove(item)
+    }
+
+    fun checkItemOnMenu(item:Item): Boolean {
+        return _products.value!!.contains(item)
     }
 
     fun addItemOnCart(item: Item) {
