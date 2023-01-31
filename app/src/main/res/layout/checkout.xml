@@ -13,7 +13,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/paid" />
+        app:srcCompat="@drawable/paid"
+        android:contentDescription="@string/total_paid" />
 
     <TextView
         android:id="@+id/paidTextView"
@@ -59,7 +60,8 @@
         android:hint="@string/total"
         android:inputType="numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/paidTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/paidTextView"
+        android:autofillHints="" />
 
 
 
@@ -93,7 +95,7 @@
         android:layout_marginTop="92dp"
         android:contentDescription="@string/new_order"
         android:drawableStart="@drawable/ic_baseline_add_box_24"
-        android:gravity="left|center_vertical"
+        android:gravity="start|center_vertical"
         android:minHeight="48dp"
         android:text="@string/new_order"
         app:layout_constraintEnd_toEndOf="parent"

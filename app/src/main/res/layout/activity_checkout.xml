@@ -2,7 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.example.pos.ui.main.model.MainViewModel" />
+        <variable
+            name="checkoutActivity"
+            type="com.example.pos.ui.main.view.CheckoutActivity" />
     </data>
 
 
@@ -18,7 +23,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
-
+        <include
+            layout="@layout/checkout"
+            android:id="@+id/checkout_display"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 </layout>
