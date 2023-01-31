@@ -8,3 +8,9 @@ data class Item(
     val name: String,
     val price: Double
 )
+
+data class CartItem(
+    val name: String,
+    val price: Double,
+    val quantity: Int
+)

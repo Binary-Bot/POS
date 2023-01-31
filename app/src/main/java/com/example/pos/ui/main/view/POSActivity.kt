@@ -41,7 +41,7 @@ class POSActivity(): Fragment() {
             posActivity = this@POSActivity
         }
         val adapter = ListItemAdapter(requireContext(), sharedViewModel)
-        binding?.cartDisplay?.cartList?.adapter= adapter
+        binding?.cartDisplay?.cartList?.adapter = adapter
         binding?.cartDisplay?.cartList?.onItemClickListener = AdapterView.OnItemClickListener{
             parent, view, position, id ->
             sharedViewModel.removeItemOnCart(sharedViewModel.itemsOnCart.value!![position])

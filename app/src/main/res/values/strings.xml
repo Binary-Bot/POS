@@ -27,4 +27,10 @@
     <string name="add_items">+</string>
     <string name="menu"> Menu  </string>
     <string name="order">Order</string>
+    <string name="total_paid">TOTAL PAID</string>
+    <string name="change_due">CHANGE DUE</string>
+    <string name="total"> Total</string>
+    <string name="email">Email</string>
+    <string name="new_order">Start a New Order</string>
+    <string name="send_receipt">Send Receipt</string>
 </resources>
