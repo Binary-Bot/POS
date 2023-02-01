@@ -14,14 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dip" >
+        android:padding="5dip">
 
         <TextView
             android:id="@+id/name_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/quantity_cart"
             android:layout_width="wrap_content"
@@ -30,6 +31,7 @@
             android:layout_marginTop="7dp"
             android:textColor="@color/black"
             android:textSize="14sp" />
+
         <TextView
             android:id="@+id/price_cart"
             android:layout_width="wrap_content"

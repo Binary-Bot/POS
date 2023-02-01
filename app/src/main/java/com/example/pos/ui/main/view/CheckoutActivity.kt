@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.pos.databinding.ActivityCheckoutBinding
+import com.example.pos.ui.main.adapter.ListItemAdapter
 import com.example.pos.ui.main.model.MainViewModel
 
 class CheckoutActivity : Fragment(){
@@ -26,6 +27,15 @@ class CheckoutActivity : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.apply{
+            viewModel = sharedViewModel
+            lifecycleOwner = viewLifecycleOwner
+            checkoutActivity = this@CheckoutActivity
+        }
+
+        binding.cartDisplay.chargeButton.visibility = View.GONE
+        val adapter = ListItemAdapter(requireContext(), sharedViewModel)
+        binding.cartDisplay.cartList.adapter = adapter
     }
 
 }
