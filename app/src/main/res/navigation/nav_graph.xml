@@ -24,5 +24,13 @@
     <fragment
         android:id="@+id/POSActivity"
         android:name="com.example.pos.ui.main.view.POSActivity"
-        android:label="POSActivity" />
+        android:label="POSActivity" >
+        <action
+            android:id="@+id/action_POSActivity_to_checkoutActivity"
+            app:destination="@id/checkoutActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkoutActivity"
+        android:name="com.example.pos.ui.main.view.CheckoutActivity"
+        android:label="CheckoutActivity" />
 </navigation>

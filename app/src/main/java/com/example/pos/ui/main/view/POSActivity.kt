@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.pos.R
 import com.example.pos.databinding.ActivityPosBinding
 import com.example.pos.ui.main.adapter.ListItemAdapter
@@ -67,5 +68,6 @@ class POSActivity(): Fragment() {
 
     fun payOrder(){
         Toast.makeText(activity, "Paid!", Toast.LENGTH_SHORT).show()
+        findNavController().navigate(R.id.action_POSActivity_to_checkoutActivity)
     }
 }
