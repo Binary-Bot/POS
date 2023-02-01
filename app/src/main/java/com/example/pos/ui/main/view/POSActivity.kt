@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -47,11 +48,16 @@ class POSActivity(): Fragment() {
             parent, view, position, id ->
             sharedViewModel.removeItemOnCart(sharedViewModel.itemsOnCart.value!!.keys.elementAt(position))
             adapter.notifyDataSetChanged()
-            Log.d("Alert", "Item On Click Deleted")
         }
-
         binding?.allItems?.gridRecyclerView?.adapter = SecItemCardAdapter(requireContext(), sharedViewModel, adapter)
         binding?.allItems?.gridRecyclerView?.setHasFixedSize(true)
+
+        val subTotalTextView: TextView = binding?.cartDisplay?.subtotalTextView!!
+        subTotalTextView.text = getString(R.string.subtotal_view, sharedViewModel.subtotalPrice, sharedViewModel.tax)
+        sharedViewModel.subtotalPrice.observe(viewLifecycleOwner) {
+                newPrice -> subTotalTextView.text = getString(R.string.subtotal_view, newPrice, sharedViewModel.tax.value) }
+        sharedViewModel.tax.observe(viewLifecycleOwner) {
+                newTax -> subTotalTextView.text = getString(R.string.subtotal_view, sharedViewModel.subtotalPrice.value, newTax) }
 
         binding?.cartDisplay?.chargeButton?.text = getString(R.string.pay, sharedViewModel.totalPrice)
         sharedViewModel.totalPrice.observe(viewLifecycleOwner) {

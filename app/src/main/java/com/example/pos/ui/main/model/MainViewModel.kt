@@ -15,6 +15,16 @@ class MainViewModel : ViewModel() {
     private val _itemsOnCart = MutableLiveData<HashMap<Item, Int>>()
     val itemsOnCart: MutableLiveData<HashMap<Item, Int>> =_itemsOnCart
 
+    private val _subtotalPrice = MutableLiveData<Double>()
+    val subtotalPrice: LiveData<String> = Transformations.map(_subtotalPrice) {
+        NumberFormat.getCurrencyInstance().format(it)
+    }
+
+    private val _tax = MutableLiveData<Double>()
+    val tax: LiveData<String> = Transformations.map(_tax) {
+        NumberFormat.getCurrencyInstance().format(it)
+    }
+
     private val _totalPrice = MutableLiveData<Double>()
     val totalPrice: LiveData<String> = Transformations.map(_totalPrice) {
         NumberFormat.getCurrencyInstance().format(it)
@@ -23,6 +33,7 @@ class MainViewModel : ViewModel() {
     init{
         _products.value = db.database
         _itemsOnCart.value = hashMapOf<Item, Int>()
+        _subtotalPrice.value = 0.00
         _totalPrice.value = 0.00
     }
 
@@ -48,7 +59,9 @@ class MainViewModel : ViewModel() {
         } else {
             _itemsOnCart.value?.put(item, 1)
         }
-        _totalPrice.value = (_totalPrice.value)?.plus(item.price)
+        _subtotalPrice.value = (_subtotalPrice.value)?.plus(item.price)
+        _tax.value = _subtotalPrice.value?.times(0.10)!!.dec()
+        _totalPrice.value = (_subtotalPrice.value)?.plus(_tax.value!!)
     }
 
     fun removeItemOnCart(item: Item) {
@@ -57,7 +70,9 @@ class MainViewModel : ViewModel() {
         } else {
             _itemsOnCart.value?.put(item, _itemsOnCart.value?.get(item)!! - 1)
         }
-        _totalPrice.value = (_totalPrice.value)?.minus(item.price)
+        _subtotalPrice.value = (_subtotalPrice.value)?.minus(item.price)
+        _tax.value = _subtotalPrice.value?.times(0.10)!!.dec()
+        _totalPrice.value = (_subtotalPrice.value)?.minus(_tax.value!!)
     }
 
     fun getQuantityOf(item: Item): Int {

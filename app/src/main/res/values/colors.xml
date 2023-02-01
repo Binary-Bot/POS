@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="red_0">#B1DEF7</color>
     <color name="red_200">#1993c8</color>
     <color name="red_500">#1478a3</color>
     <color name="red_700">#10567f</color>
