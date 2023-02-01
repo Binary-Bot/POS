@@ -44,7 +44,7 @@ class POSActivity(): Fragment() {
         binding?.cartDisplay?.cartList?.adapter = adapter
         binding?.cartDisplay?.cartList?.onItemClickListener = AdapterView.OnItemClickListener{
             parent, view, position, id ->
-            sharedViewModel.removeItemOnCart(sharedViewModel.itemsOnCart.value!![position])
+            sharedViewModel.removeItemOnCart(sharedViewModel.itemsOnCart.value!!.keys.elementAt(position))
             adapter.notifyDataSetChanged()
             Log.d("Alert", "Item On Click Deleted")
         }

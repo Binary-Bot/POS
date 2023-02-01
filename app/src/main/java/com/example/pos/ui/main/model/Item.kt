@@ -10,7 +10,6 @@ data class Item(
 )
 
 data class CartItem(
-    val name: String,
-    val price: Double,
-    val quantity: Int
+    val item: Item,
+    val quantity: Int = 0
 )

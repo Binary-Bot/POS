@@ -23,7 +23,7 @@ class ListItemAdapter (
     }
 
     override fun getItem(position: Int): Item {
-        return viewModel.itemsOnCart.value!![position]
+        return viewModel.itemsOnCart.value!!.keys.elementAt(position)
     }
 
     override fun getItemId(position: Int): Long {
@@ -51,9 +51,10 @@ class ListItemAdapter (
         private val quantityView: TextView = view.findViewById(R.id.quantity_cart)
 
         fun bind(data: Item) {
+            val quantity = viewModel.getQuantityOf(data)
             nameView.text = data.name
-            priceView.text = "$${data.price}"
-            quantityView.text = "Quantity: 1"
+            priceView.text = "$${data.price * quantity}"
+            quantityView.text = "Quantity: ${quantity}"
         }
     }
 }
