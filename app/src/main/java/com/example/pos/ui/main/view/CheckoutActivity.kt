@@ -2,11 +2,16 @@ package com.example.pos.ui.main.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.pos.R
 import com.example.pos.databinding.ActivityCheckoutBinding
 import com.example.pos.ui.main.adapter.ListItemAdapter
@@ -39,8 +44,37 @@ class CheckoutActivity : Fragment(){
         val adapter = ListItemAdapter(requireContext(), sharedViewModel)
         binding.cartDisplay.cartList.adapter = adapter
 
-        binding.cartDisplay.subtotalTextView.text = getString(R.string.subtotal_view, sharedViewModel.subtotalPrice, sharedViewModel.tax)
-        binding.cartDisplay.chargeButton.text = "Total: ${sharedViewModel.totalPrice}"
+        binding.cartDisplay.subtotalTextView.text = getString(R.string.subtotal_view, sharedViewModel.subtotalPrice.value, sharedViewModel.tax.value)
+        binding.cartDisplay.chargeButton.text = "Total: ${sharedViewModel.totalPrice.value}"
+
+        Log.d("Shashwat", "editTextChangeListener")
+        binding.checkoutDisplay.editTextTotalPaid.addTextChangedListener {
+            object: TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, end: Int) {
+                    Log.d("Shashwat", "Calculated Change")
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, count: Int, end: Int) {
+                    Log.d("Shashwat", "Calculated Change")
+
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    sharedViewModel.calculateChange(s.toString().toDouble())
+                    Log.d("Shashwat", "Calculated Change")
+                }
+
+            }
+        }
+        sharedViewModel.change.observe(viewLifecycleOwner) {
+            newChange -> binding.checkoutDisplay.changeTextView.text = sharedViewModel.change.value
+        }
+
+        binding.checkoutDisplay.newOrderButton.setOnClickListener {
+            sharedViewModel.reset()
+            findNavController().navigate(R.id.action_checkoutActivity_to_POSActivity)
+        }
+
 
     }
 

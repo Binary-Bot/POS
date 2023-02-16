@@ -32,5 +32,9 @@
     <fragment
         android:id="@+id/checkoutActivity"
         android:name="com.example.pos.ui.main.view.CheckoutActivity"
-        android:label="CheckoutActivity" />
+        android:label="CheckoutActivity" >
+        <action
+            android:id="@+id/action_checkoutActivity_to_POSActivity"
+            app:destination="@id/POSActivity" />
+    </fragment>
 </navigation>

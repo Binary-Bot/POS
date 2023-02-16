@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import java.text.NumberFormat
+import kotlin.math.abs
 
 class MainViewModel : ViewModel() {
     private val _products = MutableLiveData<MutableList<Item>>()
@@ -15,26 +16,37 @@ class MainViewModel : ViewModel() {
     private val _itemsOnCart = MutableLiveData<HashMap<Item, Int>>()
     val itemsOnCart: MutableLiveData<HashMap<Item, Int>> =_itemsOnCart
 
-    private val _subtotalPrice = MutableLiveData<Double>()
+    private val _subtotalPrice = MutableLiveData<Double>(0.00)
     val subtotalPrice: LiveData<String> = Transformations.map(_subtotalPrice) {
         NumberFormat.getCurrencyInstance().format(it)
     }
 
-    private val _tax = MutableLiveData<Double>()
+    private val _tax = MutableLiveData<Double>(0.00)
     val tax: LiveData<String> = Transformations.map(_tax) {
         NumberFormat.getCurrencyInstance().format(it)
     }
 
-    private val _totalPrice = MutableLiveData<Double>()
+    private val _totalPrice = MutableLiveData<Double>(0.00)
     val totalPrice: LiveData<String> = Transformations.map(_totalPrice) {
+        NumberFormat.getCurrencyInstance().format(it)
+    }
+
+    private val _change = MutableLiveData<Double>(0.00)
+    val change: LiveData<String> = Transformations.map(_change) {
         NumberFormat.getCurrencyInstance().format(it)
     }
 
     init{
         _products.value = db.database
         _itemsOnCart.value = hashMapOf<Item, Int>()
-        _subtotalPrice.value = 0.00
+    }
+
+    fun reset() {
         _totalPrice.value = 0.00
+        _subtotalPrice.value = 0.00
+        _tax.value = 0.00
+        _itemsOnCart.value?.clear()
+
     }
 
     fun updateItem(position: Int, item: Item) {
@@ -77,5 +89,9 @@ class MainViewModel : ViewModel() {
 
     fun getQuantityOf(item: Item): Int {
         return _itemsOnCart.value?.get(item) ?: 0
+    }
+
+    fun calculateChange(payment: Double) {
+        _change.value = abs(_totalPrice.value?.minus(payment)!!)
     }
 }

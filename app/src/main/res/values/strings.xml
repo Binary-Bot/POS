@@ -22,7 +22,8 @@
     <string name="save">Save</string>
 
     <string name="cart_title">Your Cart:</string>
-    <string name="subtotal_view">Subtotal: \t %s \nTax: \t %s</string>
+    <string name="subtotal_view">Subtotal: %s
+        \nTax:  %s</string>
     <string name="pay">Pay %s</string>
     <string name="button">Button</string>
     <string name="add_items">+</string>

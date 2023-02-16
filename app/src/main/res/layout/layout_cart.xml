@@ -35,7 +35,8 @@
             android:layout_above="@+id/charge_button"
             android:background="@color/red_0"
             android:text=""
-            android:textAlignment="center"
+            android:letterSpacing="0.2"
+            android:gravity="start"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:textColor="#607D8B" />
 
