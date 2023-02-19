@@ -9,7 +9,7 @@ data class Item(
     val price: Double
 )
 
-data class CartItem(
-    val item: Item,
-    val quantity: Int = 0
+data class ServerItem(
+    val name:String,
+    val price:Double
 )

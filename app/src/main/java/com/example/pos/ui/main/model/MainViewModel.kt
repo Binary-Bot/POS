@@ -1,6 +1,5 @@
 package com.example.pos.ui.main.model
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -93,5 +92,20 @@ class MainViewModel : ViewModel() {
 
     fun calculateChange(payment: Double) {
         _change.value = abs(_totalPrice.value?.minus(payment)!!)
+    }
+
+    fun generateReceipt(): String {
+        val builder = StringBuilder()
+        builder.append("Receipt\n\n")
+
+        for ((item, quantity) in _itemsOnCart.value.orEmpty()) {
+            builder.append("${item.name}          x $quantity            ${NumberFormat.getCurrencyInstance().format(item.price * quantity)}\n")
+        }
+
+        builder.append("\nSubtotal:                     ${subtotalPrice.value}\n")
+        builder.append("Tax:                         ${tax.value}\n")
+        builder.append("Total:                       ${totalPrice.value}\n")
+
+        return builder.toString()
     }
 }

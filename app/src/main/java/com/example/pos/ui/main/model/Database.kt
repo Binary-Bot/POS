@@ -10,7 +10,7 @@ class Database {
             Item(R.drawable.californiaroll,"California Roll", 6.50),
             Item(R.drawable.spicytunaroll,"Spicy Tuna Roll", 7.75),
             Item(R.drawable.unagiroll,"Unagi Roll", 7.75),
-            Item(R.drawable.shrimptempura,"Shrimp Tempura Roll", 9.95),
+            Item(R.drawable.shrimptempura,"Shrimp Tempura Roll", 9.75),
             Item(R.drawable.crunchyroll,"Crunchy Roll", 12.00),
             Item(R.drawable.monsterroll,"Monster Roll", 12.50),
             Item(R.drawable.dragonroll,"Dragon Roll", 14.50),
