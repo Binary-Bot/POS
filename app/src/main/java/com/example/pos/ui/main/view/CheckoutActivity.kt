@@ -59,7 +59,9 @@ class CheckoutActivity : Fragment(){
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
             }
             override fun afterTextChanged(s: Editable) {
-                sharedViewModel.calculateChange(s.toString().toDouble())
+                if (s.isNotEmpty()) {
+                    sharedViewModel.calculateChange(s.toString().toDouble())
+                }
             }
         })
         sharedViewModel.change.observe(viewLifecycleOwner) {

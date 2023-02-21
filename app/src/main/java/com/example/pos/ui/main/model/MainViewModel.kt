@@ -1,16 +1,24 @@
 package com.example.pos.ui.main.model
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.DelicateCoroutinesApi
 import java.text.NumberFormat
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.net.URL
 import kotlin.math.abs
 
 class MainViewModel : ViewModel() {
+    private val db = Database()
     private val _products = MutableLiveData<MutableList<Item>>()
     val products: MutableLiveData<MutableList<Item>> = _products
-    private val db = Database()
 
     private val _itemsOnCart = MutableLiveData<HashMap<Item, Int>>()
     val itemsOnCart: MutableLiveData<HashMap<Item, Int>> =_itemsOnCart
@@ -36,6 +44,12 @@ class MainViewModel : ViewModel() {
     }
 
     init{
+        GlobalScope.launch(Dispatchers.IO){
+            val serverDb = db.getItemsFromServer()
+            launch(Dispatchers.Main) {
+                Log.d("Shashwat", serverDb.toString())
+            }
+        }
         _products.value = db.database
         _itemsOnCart.value = hashMapOf<Item, Int>()
     }
@@ -91,7 +105,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun calculateChange(payment: Double) {
-        _change.value = abs(_totalPrice.value?.minus(payment)!!)
+        _change.value = _totalPrice.value?.minus(payment)!!
     }
 
     fun generateReceipt(): String {
