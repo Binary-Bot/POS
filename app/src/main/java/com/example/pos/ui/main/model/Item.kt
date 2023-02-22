@@ -10,6 +10,7 @@ data class Item(
 )
 
 data class ServerItem(
+    val image: String,
     val name:String,
     val price:Double
 )

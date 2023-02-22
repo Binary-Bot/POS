@@ -1,14 +1,10 @@
 package com.example.pos.ui.main.model
 
-import android.os.Handler
-import android.os.Looper
+
 import android.util.Log
 import com.example.pos.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.io.*
 import java.net.Socket
 class Database {
@@ -45,6 +41,7 @@ class Database {
 
     fun getItemsFromServer(): List<Item> {
         val socket = Socket("172.16.217.231", 2028)
+        socket.receiveBufferSize = 1024 * 1024 * 10
         val outputStream = socket.getOutputStream()
         outputStream.write("get_items".toByteArray())
         outputStream.flush()
@@ -57,6 +54,7 @@ class Database {
             response.append(line)
         }
         socket.close()
+        Log.d("Shashwat", response.toString())
         val type = object: TypeToken<List<ServerItem>>(){}.type
         return gson.fromJson(response.toString(), type)
     }

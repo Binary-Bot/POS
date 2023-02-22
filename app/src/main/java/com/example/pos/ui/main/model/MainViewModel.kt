@@ -58,6 +58,7 @@ class MainViewModel : ViewModel() {
         _totalPrice.value = 0.00
         _subtotalPrice.value = 0.00
         _tax.value = 0.00
+        _change.value = 0.00
         _itemsOnCart.value?.clear()
 
     }
