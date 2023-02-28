@@ -77,6 +77,8 @@ class MainViewModel : ViewModel() {
 
     fun updateServerItem(position: Int, item: ServerItem) {
         _products.value?.set(position, item)
+        db.updateServerItem(position, item)
+        updateItemsOnServer()
     }
 
     fun addOnMenu(item: ServerItem) {

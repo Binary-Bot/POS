@@ -127,4 +127,10 @@ class Database {
             }
         }
     }
+
+    fun updateServerItem(position: Int, item: ServerItem) {
+        val obj = db.getJSONObject(position)
+        obj.put("name", item.name)
+        obj.put("price", item.price)
+    }
 }
