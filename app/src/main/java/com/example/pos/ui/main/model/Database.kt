@@ -13,6 +13,7 @@ import java.net.Socket
 
 class Database {
     var database: MutableList<Item> = populateDB()
+    private lateinit var db: JSONArray
     private val gson: Gson = Gson()
     private val IP = "172.16.211.183"
     private val PORT = 2028
@@ -57,9 +58,9 @@ class Database {
             val bufferedReader = BufferedReader(InputStreamReader(inputStream))
             val response = bufferedReader.readLine()
 
-            val jsonArray = JSONArray(response)
-            for (i in 0 until jsonArray.length()) {
-                val jsonObject = jsonArray.getJSONObject(i)
+            db = JSONArray(response)
+            for (i in 0 until db.length()) {
+                val jsonObject = db.getJSONObject(i)
                 val name = jsonObject.getString("name")
                 val price = jsonObject.getDouble("price")
                 val imageFilename = jsonObject.getString("image")
@@ -88,7 +89,7 @@ class Database {
         return response.toString()
     }
 
-    fun getImage(image: String): String {
+    private fun getImage(image: String): String {
         val socket = Socket(IP, PORT)
         val outputStream = socket.getOutputStream()
         outputStream.write(image.toByteArray())
@@ -103,19 +104,27 @@ class Database {
         }
         socket.close()
         return byteArrayOutputStream.toByteArray().toString()
-//        val socket = Socket(IP, PORT)
-//        val outputStream = socket.getOutputStream()
-//        outputStream.write(image.toByteArray())
-//        outputStream.flush()
-//
-//        val input = BufferedReader(InputStreamReader(socket.getInputStream()))
-//        val binaryData = StringBuilder()
-//        var line: String?
-//        while (input.readLine().also { line = it } != null) {
-//            binaryData.append(line)
-//        }
-//
-//        socket.close()
-//        return binaryData.toString()
+    }
+
+    fun updateItemsOnServer() {
+        val socket = Socket(IP, PORT)
+
+        val outputStream = socket.getOutputStream()
+        outputStream.write("update_items".toByteArray())
+        outputStream.flush()
+        outputStream.write(db.toString().toByteArray())
+        outputStream.flush()
+        outputStream.close()
+        socket.close()
+    }
+
+    fun removeServerItem(item: ServerItem) {
+        for (i in 0 until db.length()) {
+            val obj = db.getJSONObject(i)
+            if (obj.getString("name") == item.name) {
+                db.remove(i)
+                break
+            }
+        }
     }
 }

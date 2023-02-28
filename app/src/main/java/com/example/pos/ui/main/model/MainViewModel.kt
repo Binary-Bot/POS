@@ -48,14 +48,22 @@ class MainViewModel : ViewModel() {
             try {
                 val items = db.getItemsFromServer()
                 _products.postValue(items)
-                Log.d("Shashwat", items.toString())
-                Log.d("Shashwat", _products.value.toString())
             } catch (e: Exception) {
                 Log.e("Shashwat", e.message.toString())
                 Log.e("Shashwat", "Error getting items from server")
             }
         }
         Log.d("Shashwat", "server function ended")
+    }
+
+    fun updateItemsOnServer(){
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                db.updateItemsOnServer()
+            } catch (e: Exception) {
+                Log.e("MainViewModel", "Error updating list on server", e)
+            }
+        }
     }
 
     fun reset() {
@@ -77,6 +85,8 @@ class MainViewModel : ViewModel() {
 
     fun removeFromMenu(item:ServerItem) {
         _products.value?.remove(item)
+        db.removeServerItem(item)
+        updateItemsOnServer()
     }
 
     fun checkItemOnMenu(item:ServerItem): Boolean {
