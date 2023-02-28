@@ -1,17 +1,14 @@
 package com.example.pos.ui.main.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import com.example.pos.R
-import com.example.pos.ui.main.model.Item
 import com.example.pos.ui.main.model.MainViewModel
+import com.example.pos.ui.main.model.ServerItem
 
 class ListItemAdapter (
     private val context: Context,
@@ -22,7 +19,7 @@ class ListItemAdapter (
         return viewModel.itemsOnCart.value?.size ?: 0
     }
 
-    override fun getItem(position: Int): Item {
+    override fun getItem(position: Int): ServerItem {
         return viewModel.itemsOnCart.value!!.keys.elementAt(position)
     }
 
@@ -50,7 +47,7 @@ class ListItemAdapter (
         private val priceView: TextView = view.findViewById(R.id.price_cart)
         private val quantityView: TextView = view.findViewById(R.id.quantity_cart)
 
-        fun bind(data: Item) {
+        fun bind(data: ServerItem) {
             val quantity = viewModel.getQuantityOf(data)
             nameView.text = data.name
             priceView.text = "$${data.price * quantity}"

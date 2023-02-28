@@ -1,27 +1,19 @@
 package com.example.pos.ui.main.model
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.DelicateCoroutinesApi
+import androidx.lifecycle.*
 import java.text.NumberFormat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.net.URL
-import kotlin.math.abs
 
 class MainViewModel : ViewModel() {
     private val db = Database()
-    private val _products = MutableLiveData<MutableList<Item>>()
-    val products: MutableLiveData<MutableList<Item>> = _products
+    private val _products = MutableLiveData<MutableList<ServerItem>>()
+    val products: MutableLiveData<MutableList<ServerItem>> = _products
 
-    private val _itemsOnCart = MutableLiveData<HashMap<Item, Int>>()
-    val itemsOnCart: MutableLiveData<HashMap<Item, Int>> =_itemsOnCart
+    private val _itemsOnCart = MutableLiveData<HashMap<ServerItem, Int>>()
+    val itemsOnCart: MutableLiveData<HashMap<ServerItem, Int>> =_itemsOnCart
 
     private val _subtotalPrice = MutableLiveData<Double>(0.00)
     val subtotalPrice: LiveData<String> = Transformations.map(_subtotalPrice) {
@@ -43,15 +35,27 @@ class MainViewModel : ViewModel() {
         NumberFormat.getCurrencyInstance().format(it)
     }
 
+    private lateinit var noImageString: String
+
     init{
-        GlobalScope.launch(Dispatchers.IO){
-            val serverDb = db.getItemsFromServer()
-            launch(Dispatchers.Main) {
-                Log.d("Shashwat", serverDb.toString())
+        getItemsFromServer()
+        _itemsOnCart.value = hashMapOf<ServerItem, Int>()
+    }
+
+    private fun getItemsFromServer(){
+        viewModelScope.launch(Dispatchers.IO) {
+            Log.d("Shashwat", "Starting to get items")
+            try {
+                val items = db.getItemsFromServer()
+                _products.postValue(items)
+                Log.d("Shashwat", items.toString())
+                Log.d("Shashwat", _products.value.toString())
+            } catch (e: Exception) {
+                Log.e("Shashwat", e.message.toString())
+                Log.e("Shashwat", "Error getting items from server")
             }
         }
-        _products.value = db.database
-        _itemsOnCart.value = hashMapOf<Item, Int>()
+        Log.d("Shashwat", "server function ended")
     }
 
     fun reset() {
@@ -63,23 +67,23 @@ class MainViewModel : ViewModel() {
 
     }
 
-    fun updateItem(position: Int, item: Item) {
+    fun updateServerItem(position: Int, item: ServerItem) {
         _products.value?.set(position, item)
     }
 
-    fun addOnMenu(item: Item) {
+    fun addOnMenu(item: ServerItem) {
         _products.value?.add(item)
     }
 
-    fun removeFromMenu(item:Item) {
+    fun removeFromMenu(item:ServerItem) {
         _products.value?.remove(item)
     }
 
-    fun checkItemOnMenu(item:Item): Boolean {
+    fun checkItemOnMenu(item:ServerItem): Boolean {
         return _products.value!!.contains(item)
     }
 
-    fun addItemOnCart(item: Item) {
+    fun addItemOnCart(item: ServerItem) {
         if (_itemsOnCart.value?.containsKey(item) == true){
             _itemsOnCart.value?.put(item, _itemsOnCart.value?.get(item)!! + 1)
         } else {
@@ -90,7 +94,7 @@ class MainViewModel : ViewModel() {
         _totalPrice.value = (_subtotalPrice.value)?.plus(_tax.value!!)
     }
 
-    fun removeItemOnCart(item: Item) {
+    fun removeItemOnCart(item: ServerItem) {
         if (_itemsOnCart.value?.get(item)!! - 1 == 0){
             _itemsOnCart.value?.remove(item)
         } else {
@@ -101,12 +105,16 @@ class MainViewModel : ViewModel() {
         _totalPrice.value = (_subtotalPrice.value)?.minus(_tax.value!!)
     }
 
-    fun getQuantityOf(item: Item): Int {
+    fun getQuantityOf(item: ServerItem): Int {
         return _itemsOnCart.value?.get(item) ?: 0
     }
 
     fun calculateChange(payment: Double) {
         _change.value = _totalPrice.value?.minus(payment)!!
+    }
+
+    fun getNoImage(): String {
+        return noImageString
     }
 
     fun generateReceipt(): String {

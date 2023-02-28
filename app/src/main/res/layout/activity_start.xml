@@ -5,6 +5,9 @@
 
     <data>
         <variable
+            name="viewModel"
+            type="com.example.pos.ui.main.model.MainViewModel" />
+        <variable
             name="startActivity"
             type="com.example.pos.ui.main.view.StartActivity" />
     </data>

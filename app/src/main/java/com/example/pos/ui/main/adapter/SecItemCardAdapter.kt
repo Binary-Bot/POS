@@ -1,6 +1,8 @@
 package com.example.pos.ui.main.adapter
 
 import android.content.Context
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +40,9 @@ class SecItemCardAdapter(
     override fun onBindViewHolder(holder: SecItemCardViewHolder, position: Int) {
         context?.resources
         val item = viewModel.products.value!![position]
-        holder.imageView.setImageResource(item.drawableID)
+        val decodedString: ByteArray = Base64.decode(item.image, Base64.DEFAULT)
+        val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+        holder.imageView.setImageBitmap(decodedByte)
         holder.nameTextView.text = item.name
         holder.priceTextView.text = "$${item.price}"
         holder.cardView.setOnClickListener {

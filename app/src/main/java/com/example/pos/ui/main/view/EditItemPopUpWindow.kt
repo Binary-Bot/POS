@@ -12,6 +12,7 @@ import com.example.pos.R
 import com.example.pos.ui.main.adapter.ItemCardAdapter
 import com.example.pos.ui.main.model.Item
 import com.example.pos.ui.main.model.MainViewModel
+import com.example.pos.ui.main.model.ServerItem
 import kotlinx.coroutines.NonDisposableHandle.parent
 
 class EditItemPopUpWindow(
@@ -20,8 +21,8 @@ class EditItemPopUpWindow(
     position: Int,
     viewModel: MainViewModel): PopupWindow() {
 
-    private var item: Item =
-        viewModel.products.value?.getOrElse(position) { Item(R.drawable.noimage, "", 0.00) }!!
+    private var item: ServerItem =
+        viewModel.products.value?.getOrElse(position) { ServerItem(viewModel.getNoImage(), "", 0.00) }!!
     init {
         val layout = LayoutInflater.from(parent.context).inflate(R.layout.edit_item, parent, false)
 
@@ -47,10 +48,10 @@ class EditItemPopUpWindow(
         saveButton.setOnClickListener {
             // Do something when save button is clicked
             if (viewModel.checkItemOnMenu(item)){
-                viewModel.updateItem(position, Item(item.drawableID, popupEditName.text.toString(), popupEditPrice.text.toString().toDouble()))
+                viewModel.updateServerItem(position, ServerItem(item.name, popupEditName.text.toString(), popupEditPrice.text.toString().toDouble()))
                 adapter.notifyItemChanged(position)
             } else {
-                viewModel.addOnMenu(Item(R.drawable.noimage, popupEditName.text.toString(), popupEditPrice.text.toString().toDouble()))
+                viewModel.addOnMenu(ServerItem(viewModel.getNoImage(), popupEditName.text.toString(), popupEditPrice.text.toString().toDouble()))
                 adapter.notifyItemInserted(position)
             }
 
