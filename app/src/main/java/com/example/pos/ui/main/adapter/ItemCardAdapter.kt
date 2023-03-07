@@ -13,6 +13,7 @@ import com.example.pos.R
 import com.example.pos.ui.main.model.MainViewModel
 import com.example.pos.ui.main.view.EditItemPopUpWindow
 import com.google.android.material.card.MaterialCardView
+import com.squareup.picasso.Picasso
 import java.util.*
 
 

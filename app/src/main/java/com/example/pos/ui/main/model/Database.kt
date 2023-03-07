@@ -72,7 +72,7 @@ class Database {
     }
 
     fun getNoImage(): String {
-        val socket = Socket("172.16.211.183", 2028)
+        val socket = Socket("172.16.23.191", 2028)
         val outputStream = socket.getOutputStream()
         outputStream.write("get_no_image".toByteArray())
         outputStream.flush()
